@@ -123,7 +123,8 @@ export function ReviewGenerator() {
                 placeholder="Your generated review will appear here..."
                 value={review}
                 readOnly
-                className="min-h-[150px] text-base bg-secondary/30"
+                onClick={handleCopyToClipboard}
+                className="min-h-[150px] text-base bg-secondary/30 cursor-pointer"
                 rows={6}
                 aria-label="Generated Review"
               />
