@@ -39,14 +39,23 @@ export function ReviewGenerator() {
   useEffect(() => {
     const handleGenerateReview = async () => {
       setIsLoading(true);
+      const startTime = Date.now();
       try {
         const keywords = getRandomKeywords();
         const result = await generateReview({ keywords });
-        if (result && result.review) {
-          setReview(result.review);
-        } else {
-          throw new Error('Failed to generate review. The AI returned an empty response.');
-        }
+
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1500 - elapsedTime);
+
+        setTimeout(() => {
+          if (result && result.review) {
+            setReview(result.review);
+          } else {
+            throw new Error('Failed to generate review. The AI returned an empty response.');
+          }
+          setIsLoading(false);
+        }, remainingTime);
+
       } catch (error) {
         console.error(error);
         toast({
@@ -54,7 +63,6 @@ export function ReviewGenerator() {
           title: 'Error',
           description: 'Something went wrong while generating the review. Please try again.',
         });
-      } finally {
         setIsLoading(false);
       }
     };
@@ -72,7 +80,7 @@ export function ReviewGenerator() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-card">
+    <Card className="w-full max-w-2xl mx-auto bg-card border-none shadow-none">
       <CardHeader>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className='flex items-center gap-4'>
@@ -94,7 +102,7 @@ export function ReviewGenerator() {
                 onClick={handleCopyToClipboard}
               >
                 <Copy className="w-4 h-4 mr-2" />
-                Copy
+                Copy Text
               </Button>
             )}
         </div>
