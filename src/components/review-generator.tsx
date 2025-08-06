@@ -72,19 +72,33 @@ export function ReviewGenerator() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-2xl bg-card">
+    <Card className="w-full max-w-2xl mx-auto bg-card">
       <CardHeader>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-            <Wand2 className="w-8 h-8 text-primary" />
-          </div>
-          <div className="flex-1">
-            <CardTitle className="text-2xl font-headline">Ab Nahid Review Generator</CardTitle>
-            <CardDescription className="mt-1">
-              An authentic Google review, generated just for you.
-            </CardDescription>
-          </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className='flex items-center gap-4'>
+                <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                    <Wand2 className="w-8 h-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                    <CardTitle className="text-2xl font-headline">Ab Nahid Review Generator</CardTitle>
+                    <CardDescription className="mt-1">
+                    An authentic Google review, generated just for you.
+                    </CardDescription>
+                </div>
+            </div>
+            {review && !isLoading && (
+              <Button
+                aria-label="Copy review to clipboard"
+                variant="default"
+                className="text-white bg-primary hover:bg-primary/90"
+                onClick={handleCopyToClipboard}
+              >
+                <Copy className="w-4 h-4 mr-2" />
+                Copy
+              </Button>
+            )}
         </div>
+
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
@@ -105,17 +119,6 @@ export function ReviewGenerator() {
                 rows={6}
                 aria-label="Generated Review"
               />
-            )}
-             {review && !isLoading && (
-              <Button
-                aria-label="Copy review to clipboard"
-                variant="default"
-                size="icon"
-                className="absolute top-2 right-2 h-9 w-9 text-white bg-primary hover:bg-primary/90"
-                onClick={handleCopyToClipboard}
-              >
-                <Copy className="w-5 h-5" />
-              </Button>
             )}
           </div>
         </div>
