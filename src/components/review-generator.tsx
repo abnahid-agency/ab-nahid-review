@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Copy, Wand2 } from 'lucide-react';
 import { generateReview } from '@/ai/flows/generate-review';
 import { Button } from '@/components/ui/button';
@@ -33,31 +33,34 @@ function getRandomKeywords() {
 
 export function ReviewGenerator() {
   const [review, setReview] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  const handleGenerateReview = async () => {
-    setIsLoading(true);
-    setReview('');
-    try {
-      const keywords = getRandomKeywords();
-      const result = await generateReview({ keywords });
-      if (result && result.review) {
-        setReview(result.review);
-      } else {
-        throw new Error('Failed to generate review. The AI returned an empty response.');
+  useEffect(() => {
+    const handleGenerateReview = async () => {
+      setIsLoading(true);
+      try {
+        const keywords = getRandomKeywords();
+        const result = await generateReview({ keywords });
+        if (result && result.review) {
+          setReview(result.review);
+        } else {
+          throw new Error('Failed to generate review. The AI returned an empty response.');
+        }
+      } catch (error) {
+        console.error(error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Something went wrong while generating the review. Please try again.',
+        });
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Something went wrong while generating the review. Please try again.',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
+
+    handleGenerateReview();
+  }, [toast]);
 
   const handleCopyToClipboard = () => {
     if (!review) return;
@@ -78,7 +81,7 @@ export function ReviewGenerator() {
           <div className="flex-1">
             <CardTitle className="text-2xl font-headline">Ab Nahid Review Generator</CardTitle>
             <CardDescription className="mt-1">
-              Generate a natural, human-sounding Google review for Ab Nahid Agency.
+              An authentic Google review, generated just for you.
             </CardDescription>
           </div>
         </div>
@@ -97,8 +100,8 @@ export function ReviewGenerator() {
               <Textarea
                 placeholder="Your generated review will appear here..."
                 value={review}
-                onChange={(e) => setReview(e.target.value)}
-                className="min-h-[150px] text-base"
+                readOnly
+                className="min-h-[150px] text-base bg-secondary/30"
                 rows={6}
                 aria-label="Generated Review"
               />
@@ -106,32 +109,16 @@ export function ReviewGenerator() {
              {review && !isLoading && (
               <Button
                 aria-label="Copy review to clipboard"
-                variant="ghost"
+                variant="default"
                 size="icon"
-                className="absolute top-2 right-2 h-8 w-8 text-muted-foreground hover:bg-accent/50"
+                className="absolute top-2 right-2 h-9 w-9 text-white bg-primary hover:bg-primary/90"
                 onClick={handleCopyToClipboard}
               >
-                <Copy className="w-4 h-4" />
+                <Copy className="w-5 h-5" />
               </Button>
             )}
           </div>
         </div>
-        <Button onClick={handleGenerateReview} disabled={isLoading} className="w-full font-bold" size="lg" style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
-          {isLoading ? (
-            <span className="flex items-center">
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Generating...
-            </span>
-          ) : (
-            <>
-              <Wand2 className="w-5 h-5 mr-2" />
-              Generate Review
-            </>
-          )}
-        </Button>
       </CardContent>
     </Card>
   );
