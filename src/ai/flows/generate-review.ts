@@ -39,7 +39,7 @@ const prompt = ai.definePrompt({
 
   The review should sound like a real client who received services like SEO, WordPress development, digital marketing, or website design. Mention how the service helped them and why they’d recommend Ab Nahid Agency to others in Sylhet or Bangladesh.
 
-  Write the review in a professional and friendly tone, use 3–5 sentences, and make it sound completely authentic. Avoid stuffing keywords; instead, subtly weave in 2-3 of the most relevant keywords from the list provided.
+  Write the review in a professional and friendly tone, use 3–5 sentences, and make it sound completely authentic. Avoid stuffing keywords; instead, subtly weave in 2-3 of the most relevant keywords from the list provided. Do not include any quotation marks in the review.
 
   Use the following keywords in the review: {{{keywords}}}
   `,
