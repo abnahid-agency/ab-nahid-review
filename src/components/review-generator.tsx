@@ -6,6 +6,7 @@ import { generateReview } from '@/ai/flows/generate-review';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
@@ -23,6 +24,15 @@ const keywordsList = [
     'marketing agency in Sylhet',
     'SEO expert near me',
     'top WordPress development agency Sylhet',
+    'best website design company in sylhet',
+    'best web development company sylhet',
+    'next.js expert in sylhet',
+    'professional web developer sylhet',
+    'affordable seo service in bangladesh',
+    'top seo agency in bangladesh',
+    'seo service for local business bd',
+    'wordpress expert in sylhet',
+    'best marn stack developer in sylhet',
 ];
 
 function getRandomKeywords() {
@@ -80,7 +90,7 @@ export function ReviewGenerator() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-card border-none shadow-none">
+    <Card className="w-full max-w-2xl mx-auto bg-transparent border-none shadow-none">
       <CardHeader>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className='flex items-center gap-4'>
@@ -102,35 +112,51 @@ export function ReviewGenerator() {
                 onClick={handleCopyToClipboard}
               >
                 <Copy className="w-4 h-4 mr-2" />
-                Copy Text
+                Copy
               </Button>
             )}
         </div>
 
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <div className="relative">
-            {isLoading ? (
-              <div className="space-y-2.5 rounded-md border p-4">
-                <Skeleton className="h-5 w-full" />
-                <Skeleton className="h-5 w-[90%]" />
-                <Skeleton className="h-5 w-full" />
-                <Skeleton className="h-5 w-[70%]" />
+        <Tabs defaultValue="google" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="google">Google Review</TabsTrigger>
+            <TabsTrigger value="facebook">Facebook Review</TabsTrigger>
+          </TabsList>
+          <TabsContent value="google" className="mt-6">
+            <div className="space-y-2">
+              <div className="relative">
+                {isLoading ? (
+                  <div className="space-y-2.5 rounded-md border border-input p-4">
+                    <Skeleton className="h-5 w-full bg-muted" />
+                    <Skeleton className="h-5 w-[90%] bg-muted" />
+                    <Skeleton className="h-5 w-full bg-muted" />
+                    <Skeleton className="h-5 w-[70%] bg-muted" />
+                  </div>
+                ) : (
+                  <Textarea
+                    placeholder="Your generated review will appear here..."
+                    value={review}
+                    readOnly
+                    onClick={handleCopyToClipboard}
+                    className="min-h-[150px] text-base bg-secondary/30 cursor-pointer"
+                    rows={6}
+                    aria-label="Generated Review"
+                  />
+                )}
               </div>
-            ) : (
-              <Textarea
-                placeholder="Your generated review will appear here..."
-                value={review}
-                readOnly
-                onClick={handleCopyToClipboard}
-                className="min-h-[150px] text-base bg-secondary/30 cursor-pointer"
-                rows={6}
-                aria-label="Generated Review"
-              />
-            )}
-          </div>
-        </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="facebook" className="mt-6">
+            <Card className='bg-secondary/30'>
+                <CardHeader>
+                    <CardTitle>Coming Soon</CardTitle>
+                    <CardDescription>Facebook review generation is not yet available.</CardDescription>
+                </CardHeader>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </CardContent>
     </Card>
   );
