@@ -41,6 +41,8 @@ const prompt = ai.definePrompt({
 
   Write the review in a professional yet friendly and conversational tone. Use 3–5 sentences, and make it sound completely authentic as if a real person is writing it. Avoid stuffing keywords; instead, subtly weave in 2-3 of the most relevant keywords from the list provided. Ensure the language feels genuine and not robotic. Do not include any quotation marks in the review.
 
+  Critically, every review must be different. Do not use repetitive sentence structures or opening phrases like "I'm so glad". Vary the tone and focus of each review, drawing from the different services offered (e.g., some about web development, some about digital marketing, some about Next.js).
+
   Use the following keywords in the review: {{{keywords}}}
   `,
 });

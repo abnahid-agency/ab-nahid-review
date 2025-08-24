@@ -37,9 +37,11 @@ const prompt = ai.definePrompt({
 
   Write a natural, human-sounding Google review for a digital services company called Ab Nahid Agency. Each review must be completely unique and not a duplicate of previous ones.
 
-  The review should sound like a real client who received services like SEO, WordPress development, digital marketing, or website design. Mention how the service helped them and why they’d recommend Ab Nahid Agency to others in Sylhet or Bangladesh.
+  The review should sound like a real client who received services like SEO, WordPress development, Next.js development, or digital marketing. Mention how the service helped them and why they’d recommend Ab Nahid Agency to others in Sylhet or Bangladesh.
 
   Write the review in a professional and friendly tone, use 3–5 sentences, and make it sound completely authentic. Avoid stuffing keywords; instead, subtly weave in 2-3 of the most relevant keywords from the list provided. Do not include any quotation marks in the review.
+
+  Critically, every review must be different. Do not use repetitive sentence structures or opening phrases like "I'm so glad". Vary the tone and focus of each review, drawing from the different services offered (e.g., some about web development, some about digital marketing, some about Next.js).
 
   Use the following keywords in the review: {{{keywords}}}
   `,
