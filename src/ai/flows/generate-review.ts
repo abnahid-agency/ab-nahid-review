@@ -39,7 +39,16 @@ const prompt = ai.definePrompt({
 
   Focus the review on the following topic: {{{topic}}}.
 
-  Write the review in a professional and friendly tone, use 3–5 sentences, and make it sound completely authentic. Avoid stuffing keywords; instead, subtly weave in 2-3 of the most relevant keywords. Do not include any quotation marks in the review.
+  When writing about the topic, subtly and naturally include 1-2 relevant keywords from the following list, ONLY if they fit the selected topic. Do not stuff keywords.
+
+  Keyword List:
+  - For SEO/Digital Marketing: "best seo expert in sylhet", "top digital marketing agency in sylhet", "affordable seo service in bangladesh", "seo service for local business bd"
+  - For Web Development: "best web development agency in sylhet", "next.js expert in sylhet", "custom website design in sylhet"
+  - For WordPress: "professional wordpress developer in sylhet", "wordpress expert in sylhet"
+  - For MERN Stack: "best marn stack developer in sylhet"
+
+
+  Write the review in a professional and friendly tone, use 3–5 sentences, and make it sound completely authentic. Avoid a robotic tone. Do not include any quotation marks in the review.
 
   Critically, every review must be different. Do not use repetitive sentence structures or opening phrases like "I'm so glad". Vary the tone and focus of each review.
   `,

@@ -11,13 +11,13 @@ import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const reviewTopics = [
-    'Digital Marketing',
-    'SEO',
-    'Web Development',
-    'WordPress Development',
-    'Next.js Development',
-    'MERN Stack Development',
-    'Figma to Next.js',
+  'Next.js Development',
+  'Web Development',
+  'WordPress Development',
+  'MERN Stack Development',
+  'Figma to Next.js',
+  'Digital Marketing',
+  'SEO',
 ];
 
 export function GoogleReviewGenerator() {
