@@ -3,8 +3,35 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ab-review-generator.app'),
   title: 'Ab Nahid Review Generator',
-  description: 'Generate authentic Google reviews for Ab Nahid Agency.',
+  description: 'Generate authentic Google and Facebook reviews for Ab Nahid Agency to boost your online presence.',
+  openGraph: {
+    title: 'Ab Nahid Review Generator',
+    description: 'Generate authentic Google and Facebook reviews for Ab Nahid Agency.',
+    url: 'https://ab-review-generator.app',
+    siteName: 'Ab Nahid Review Generator',
+    images: [
+      {
+        url: 'https://ab-review-generator.app/og-image.png', // Must be an absolute URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
