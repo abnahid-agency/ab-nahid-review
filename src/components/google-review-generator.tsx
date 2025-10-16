@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Copy, Wand2 } from 'lucide-react';
 import { generateReview } from '@/ai/flows/generate-review';
 import { Button } from '@/components/ui/button';
@@ -8,49 +8,29 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const keywordsList = [
-    'best SEO expert in Sylhet',
-    'best SEO expert in Bangladesh',
-    'best web development agency in Sylhet',
-    'best web developer in Sylhet',
-    'top digital marketing agency in Sylhet',
-    'affordable SEO services in Sylhet',
-    'professional WordPress developer in Sylhet',
-    'freelance SEO expert in Bangladesh',
-    'custom website design in Sylhet',
-    'SEO expert in Sylhet',
-    'marketing agency in Sylhet',
-    'SEO expert near me',
-    'top WordPress development agency Sylhet',
-    'best website design company in sylhet',
-    'best web development company sylhet',
-    'next.js expert in sylhet',
-    'professional web developer sylhet',
-    'affordable seo service in bangladesh',
-    'top seo agency in bangladesh',
-    'seo service for local business bd',
-    'wordpress expert in sylhet',
-    'best marn stack developer in sylhet',
+const reviewTopics = [
+    'Digital Marketing',
+    'SEO',
+    'Web Development',
+    'WordPress Development',
+    'Next.js Development',
+    'MERN Stack Development',
+    'Figma to Next.js',
 ];
-
-function getRandomKeywords() {
-  const shuffled = [...keywordsList].sort(() => 0.5 - Math.random());
-  const count = Math.floor(Math.random() * 2) + 2; // 2 or 3
-  return shuffled.slice(0, count).join(', ');
-}
 
 export function GoogleReviewGenerator() {
   const [googleReview, setGoogleReview] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTopic, setSelectedTopic] = useState(reviewTopics[0]);
   const { toast } = useToast();
 
-  const handleGenerateReview = async () => {
+  const handleGenerateReview = useCallback(async (topic: string) => {
     setIsLoading(true);
     const startTime = Date.now();
     try {
-      const keywords = getRandomKeywords();
-      const result = await generateReview({ keywords });
+      const result = await generateReview({ topic });
       if (result && result.review) {
         setGoogleReview(result.review);
       } else {
@@ -73,12 +53,11 @@ export function GoogleReviewGenerator() {
       });
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
-    handleGenerateReview();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    handleGenerateReview(selectedTopic);
+  }, [selectedTopic, handleGenerateReview]);
 
   const handleCopyToClipboard = () => {
     if (!googleReview) return;
@@ -106,7 +85,7 @@ export function GoogleReviewGenerator() {
             </div>
             {googleReview && !isLoading && (
               <Button
-                aria-label="Copy review to clipboard"
+                aria-label="Copy review text"
                 variant="default"
                 className="text-white bg-primary hover:bg-primary/90"
                 onClick={handleCopyToClipboard}
@@ -118,7 +97,20 @@ export function GoogleReviewGenerator() {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-2">
+        <div className="space-y-4">
+            <Select onValueChange={setSelectedTopic} defaultValue={selectedTopic}>
+                <SelectTrigger className="w-full sm:w-[280px]">
+                    <SelectValue placeholder="Select a review topic" />
+                </SelectTrigger>
+                <SelectContent>
+                    {reviewTopics.map((topic) => (
+                        <SelectItem key={topic} value={topic}>
+                            {topic}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+
             <div className="relative">
             {isLoading ? (
                 <div className="space-y-2.5 rounded-md border border-input p-4">
