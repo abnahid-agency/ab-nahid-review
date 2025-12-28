@@ -48,6 +48,16 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.ChatFlowConfig = {
+                ownerId: "f48f77e9-50ce-4c28-b183-d17b94d6969c"
+              };
+            `,
+          }}
+        />
+        <script src="https://preview--abchat.lovable.app/widget.js" async></script>
       </head>
       <body className="font-body antialiased">
         {children}
