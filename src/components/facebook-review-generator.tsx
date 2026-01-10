@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Copy, Wand2 } from 'lucide-react';
-import { generateFacebookReview } from '@/ai/flows/generate-facebook-review';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -30,7 +29,17 @@ export function FacebookReviewGenerator() {
     setIsLoading(true);
     const startTime = Date.now();
     try {
-      const result = await generateFacebookReview({ topic });
+      const response = await fetch('http://localhost:3001/api/generate-facebook-review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate review');
+      }
+
+      const result = await response.json();
       if (result && result.review) {
         setFacebookReview(result.review);
       } else {
