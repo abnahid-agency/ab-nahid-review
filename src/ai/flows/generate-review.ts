@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview Generates a realistic Google review for a digital services company.
  *
@@ -8,7 +6,7 @@
  * - GenerateReviewOutput - The return type for the generateReview function.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai} from '../genkit';
 import {z} from 'genkit';
 
 const GenerateReviewInputSchema = z.object({

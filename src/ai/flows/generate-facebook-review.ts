@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview Generates a realistic Facebook review for a digital services company.
  *
@@ -8,7 +6,7 @@
  * - GenerateFacebookReviewOutput - The return type for the generateFacebookReview function.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai} from '../genkit';
 import {z} from 'genkit';
 
 const GenerateFacebookReviewInputSchema = z.object({
