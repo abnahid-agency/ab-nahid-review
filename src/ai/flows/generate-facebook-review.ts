@@ -42,10 +42,11 @@ const prompt = ai.definePrompt({
   When writing about the topic, subtly and naturally include 1-2 relevant keywords from the following list, ONLY if they fit the selected topic. Do not stuff keywords.
 
   Keyword List:
-  - For SEO/Digital Marketing: "best seo expert in sylhet", "top digital marketing agency in sylhet", "affordable seo service in bangladesh", "seo service for local business bd"
-  - For Web Development: "best web development agency in sylhet", "next.js expert in sylhet", "custom website design in sylhet"
-  - For WordPress: "professional wordpress developer in sylhet", "wordpress expert in sylhet"
+  - For SEO/Digital Marketing: "best seo expert in sylhet", "top digital marketing agency in sylhet", "affordable seo service in bangladesh", "seo service for local business bd", "seo expert in sylhet", "seo expert in bangladesh", "top seo agency in bangladesh"
+  - For Web Development: "best web development agency in sylhet", "next.js expert in sylhet", "custom website design in sylhet", "best web developer in sylhet", "professional web developer sylhet", "best web development company sylhet"
+  - For WordPress: "professional wordpress developer in sylhet", "wordpress expert in sylhet", "top wordpress development agency sylhet"
   - For MERN Stack: "best marn stack developer in sylhet"
+  - For Figma to Next.js: "figma to next.js expart", "next.js expert in sylhet"
 
   Write the review in a professional yet friendly and conversational tone. Use 3–5 sentences, and make it sound completely authentic as if a real person is writing it. Avoid a robotic tone. Do not include any quotation marks in the review.
 
