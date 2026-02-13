@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { generateFacebookReview } from '@/ai/flows/generate-facebook-review';
 
 const reviewTopics = [
   'Next.js Development',
@@ -29,17 +30,9 @@ export function FacebookReviewGenerator() {
     setIsLoading(true);
     const startTime = Date.now();
     try {
-      const response = await fetch('http://localhost:3001/api/generate-facebook-review', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic }),
-      });
+      // Calling the Server Action directly instead of fetch
+      const result = await generateFacebookReview({ topic });
 
-      if (!response.ok) {
-        throw new Error('Failed to generate review');
-      }
-
-      const result = await response.json();
       if (result && result.review) {
         setFacebookReview(result.review);
       } else {
@@ -47,7 +40,7 @@ export function FacebookReviewGenerator() {
       }
 
       const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(0, 1500 - elapsedTime);
+      const remainingTime = Math.max(0, 800 - elapsedTime);
 
       setTimeout(() => {
         setIsLoading(false);
